@@ -1,365 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Advanced Healthcare Finder</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affordable Healthcare Finder</title>
 
 <style>
 
-body{
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial,sans-serif;
-background:linear-gradient(to right,#dbeafe,#ffffff,#dcfce7);
 }
 
-.card:hover{
-transform:translateY(-5px);
-transition:0.3s;
+body{
+background:#f4f9ff;
+}
+
+header{
+background:linear-gradient(135deg,#0077ff,#00c6ff);
+padding:30px;
+text-align:center;
+color:white;
+}
+
+header h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+header p{
+font-size:18px;
+}
+
+.hero{
+padding:20px;
+text-align:center;
+}
+
+.hero img{
+width:100%;
+max-height:350px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.search-box{
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.search-box input{
+padding:15px;
+width:320px;
+border:none;
+border-radius:10px;
+font-size:16px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-box button{
+padding:15px 20px;
+border:none;
+border-radius:10px;
+background:#0077ff;
+color:white;
+cursor:pointer;
+}
+
+.available{
+padding:20px;
+text-align:center;
+}
+
+.available h2{
+color:#0077ff;
+margin-bottom:15px;
+}
+
+.available p{
+font-size:18px;
+line-height:2;
+}
+
+#hospitalResults{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+width:380px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card h2{
+color:#0077ff;
+margin-bottom:10px;
+}
+
+.card h3{
+margin-top:20px;
+color:#00a86b;
+}
+
+.card p{
+margin:8px 0;
+line-height:1.5;
+}
+
+.card ul{
+padding-left:20px;
+margin-top:10px;
+}
+
+.card li{
+margin-bottom:8px;
+}
+
+.btns{
+margin-top:15px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.btns button{
+padding:10px 15px;
+border:none;
+border-radius:8px;
+background:#0077ff;
+color:white;
+cursor:pointer;
+}
+
+.voice{
+text-align:center;
+margin:40px 0;
+}
+
+.voice select{
+padding:12px;
+border-radius:8px;
+}
+
+.voice button{
+padding:12px 15px;
+border:none;
+border-radius:8px;
+background:#0077ff;
+color:white;
+cursor:pointer;
+margin:5px;
+}
+
+.emergency{
+position:fixed;
+bottom:20px;
+right:20px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.emergency button{
+padding:15px;
+border:none;
+border-radius:50px;
+background:red;
+color:white;
+cursor:pointer;
+}
+
+footer{
+background:#0077ff;
+padding:20px;
+text-align:center;
+color:white;
+margin-top:30px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- LOGIN PAGE -->
+<header>
 
-<section
-id="loginPage"
-class="min-h-screen flex items-center justify-center p-6">
+<h1>🏥 Affordable Healthcare Finder</h1>
 
-<div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
+<p>Search Hospitals, Doctors, Treatments & Treatment Costs Easily</p>
 
-<h1 class="text-4xl font-bold text-center text-blue-700 mb-8">
+</header>
 
-🏥 Advanced Healthcare Finder
+<section class="hero">
 
-</h1>
+<img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200&auto=format&fit=crop">
 
-<input
-id="nameInput"
+<div class="search-box">
+
+<input 
 type="text"
-placeholder="Enter Your Name"
-class="w-full p-4 border rounded-2xl mb-4">
+id="searchInput"
+placeholder="Search Hospital, Doctor or Treatment">
 
-<input
-id="ageInput"
-type="number"
-placeholder="Enter Your Age"
-class="w-full p-4 border rounded-2xl mb-4">
-
-<div
-class="bg-blue-100 p-4 rounded-2xl mb-3 text-center font-bold text-xl"
-id="captchaBox">
-
-</div>
-
-<input
-id="captchaInput"
-type="text"
-placeholder="Enter CAPTCHA"
-class="w-full p-4 border rounded-2xl mb-5">
-
-<button
-onclick="loginUser()"
-class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl text-xl font-bold">
-
-Login
-
+<button onclick="searchHospital()">
+Search
 </button>
 
 </div>
 
 </section>
 
-<!-- MAIN APP -->
+<section class="available">
 
-<div id="mainApp" class="hidden">
+<h2>🏥 Hospitals Available</h2>
 
-<!-- NAVBAR -->
+<p>
 
-<nav
-class="bg-white shadow-lg p-5 flex justify-between items-center sticky top-0 z-50">
-
-<h1 class="text-3xl font-bold text-blue-700">
-
-🩺 Healthcare Finder
-
-</h1>
-
-<div class="flex gap-3">
-
-<button
-onclick="openLanguageModal()"
-class="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl font-bold">
-
-🎤 Voice Guide
-
-</button>
-
-<button
-onclick="stopVoice()"
-class="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl font-bold">
-
-⛔ Stop
-
-</button>
-
-</div>
-
-</nav>
-
-<!-- HERO -->
-
-<section class="text-center py-10 px-5">
-
-<h2
-id="welcomeText"
-class="text-5xl font-bold text-blue-700">
-
-</h2>
-
-<p class="mt-5 text-xl text-gray-600">
-
-Search treatments, compare hospitals,
-find affordable healthcare and book appointments.
+✅ B K S Hospital <br>
+✅ BALLARI Health City Hospital <br>
 
 </p>
 
 </section>
 
-<!-- SEARCH -->
+<div id="hospitalResults"></div>
 
-<section class="px-6 pb-10">
+<section class="voice">
 
-<div class="max-w-5xl mx-auto bg-white p-8 rounded-3xl shadow-xl">
+<h2>🗣 Voice Guidance</h2>
 
-<div class="grid md:grid-cols-2 gap-5">
+<select id="language">
 
-<input
-id="treatmentInput"
-type="text"
-placeholder="Search Treatment or Scan"
-class="w-full p-5 border rounded-2xl text-lg">
+<option value="en-US">English</option>
+<option value="kn-IN">Kannada</option>
+<option value="hi-IN">Hindi</option>
+<option value="te-IN">Telugu</option>
 
-<input
-id="budgetInput"
-type="number"
-placeholder="Enter Budget"
-class="w-full p-5 border rounded-2xl text-lg">
+</select>
 
-</div>
-
-<button
-onclick="searchTreatment()"
-class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl text-xl font-bold">
-
-🔍 Search Hospitals
-
+<button onclick="startVoice()">
+▶ Start Voice
 </button>
 
-</div>
+<button onclick="stopVoice()">
+⏹ Stop Voice
+</button>
 
 </section>
 
-<!-- RESULTS -->
+<div class="emergency">
 
-<section
-id="results"
-class="grid md:grid-cols-2 gap-8 p-6">
-
-</section>
-
-<!-- EMERGENCY -->
-
-<section class="p-6">
-
-<div
-class="bg-red-500 text-white rounded-3xl p-10 text-center shadow-2xl">
-
-<h2 class="text-5xl font-bold">
-
-🚑 Emergency Support
-
-</h2>
-
-<p class="mt-5 text-lg">
-
-24/7 Ambulance and Emergency Healthcare Services
-
-</p>
-
-<div class="mt-8 flex flex-wrap justify-center gap-5">
-
-<button
-onclick="window.location.href='tel:108'"
-class="bg-white text-red-600 px-8 py-3 rounded-2xl font-bold">
-
-Call Ambulance
-
+<button onclick="callAmbulance()">
+🚑 Ambulance
 </button>
 
-<button
-onclick="window.location.href='tel:102'"
-class="bg-white text-red-600 px-8 py-3 rounded-2xl font-bold">
-
-Emergency Call
-
+<button onclick="callEmergency()">
+📞 Emergency
 </button>
 
 </div>
 
-</div>
+<footer>
 
-</section>
+Affordable Healthcare Finder © 2026
 
-</div>
-
-<!-- LANGUAGE MODAL -->
-
-<div
-id="languageModal"
-class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-
-<div class="bg-white p-8 rounded-3xl w-80 text-center">
-
-<h2 class="text-3xl font-bold text-blue-700 mb-6">
-
-Select Language
-
-</h2>
-
-<div class="grid gap-4">
-
-<button
-onclick="startVoice('en-US')"
-class="bg-blue-600 text-white py-3 rounded-xl">
-
-English
-
-</button>
-
-<button
-onclick="startVoice('kn-IN')"
-class="bg-green-600 text-white py-3 rounded-xl">
-
-Kannada
-
-</button>
-
-<button
-onclick="startVoice('te-IN')"
-class="bg-purple-600 text-white py-3 rounded-xl">
-
-Telugu
-
-</button>
-
-<button
-onclick="startVoice('hi-IN')"
-class="bg-orange-600 text-white py-3 rounded-xl">
-
-Hindi
-
-</button>
-
-</div>
-
-<button
-onclick="closeLanguageModal()"
-class="mt-6 text-red-500 font-bold">
-
-Close
-
-</button>
-
-</div>
-
-</div>
+</footer>
 
 <script>
-
-let captchaText = "";
-
-function generateCaptcha(){
-
-captchaText =
-Math.random().toString(36).substring(2,8);
-
-document.getElementById("captchaBox")
-.innerHTML = captchaText;
-
-}
-
-generateCaptcha();
-
-function loginUser(){
-
-const name =
-document.getElementById("nameInput").value;
-
-const age =
-document.getElementById("ageInput").value;
-
-const captcha =
-document.getElementById("captchaInput").value;
-
-if(name === "" || age === ""){
-
-alert("Please fill all details");
-
-return;
-
-}
-
-if(captcha !== captchaText){
-
-alert("Invalid CAPTCHA");
-
-generateCaptcha();
-
-return;
-
-}
-
-document.getElementById("loginPage")
-.classList.add("hidden");
-
-document.getElementById("mainApp")
-.classList.remove("hidden");
-
-document.getElementById("welcomeText")
-.innerHTML =
-"Welcome " + name + " 👋";
-
-}
 
 const hospitals = [
 
 {
 
-name:"BKS Hospital Ballari",
+name:"B K S Hospital",
 
-rating:"4.7",
+rating:"4.4",
 
-phone:"08392221111",
+phone:"08392-256500",
 
-map:"https://maps.google.com/?q=BKS+Hospital+Ballari",
+departments:[
+
+{
+
+department:"Pediatrics",
+
+doctors:[
+
+"Dr. B. K. Srikanth – Senior Paediatrician",
+
+"Dr. Siddarth S. Joshi – Pediatric Neuro Specialist"
+
+],
+
+fee:"₹300 – ₹800",
 
 treatments:[
 
-["MRI Scan",7000],
-["Blood Test",1000],
-["CT Scan",5000],
-["Heart Surgery",350000]
+"General Pediatric OPD Care – Treatment for fever, cough, viral infections and allergies – ₹300 – ₹500",
+
+"Childhood Immunization – Baby vaccination and health checkup – ₹1,000 – ₹6,000",
+
+"Phototherapy – Blue-light treatment for newborn jaundice – ₹3,000 – ₹6,000 per day",
+
+"Pediatric Ward Admission – Child inpatient care with IV support – ₹4,500 – ₹8,000 per day",
+
+"NICU/PICU Intensive Care – Critical newborn and child ICU support – ₹10,000 – ₹20,000 per day",
+
+"Pediatric Surgery – Hernia, appendix and corrective surgeries – ₹15,000 – ₹45,000",
+
+"Major Pediatric Surgery – Advanced child surgeries – ₹75,000 – ₹1,50,000+",
+
+"EEG Brain Monitoring – Brain scan for seizures and neurological issues – ₹1,500 – ₹3,500"
 
 ]
 
@@ -367,20 +329,37 @@ treatments:[
 
 {
 
-name:"BHHC Hospital Ballari",
+department:"Gynecology & Obstetrics",
 
-rating:"4.8",
+doctors:[
 
-phone:"08392222222",
+"Dr. Anupama Sundar – Gynecologist & Obstetrician",
 
-map:"https://maps.google.com/?q=BHHC+Hospital+Ballari",
+"Dr. Veerendra Kumar – Gynecologist & Obstetrician"
+
+],
+
+fee:"₹600 – ₹1000",
 
 treatments:[
 
-["MRI Scan",8000],
-["Blood Test",1200],
-["Chemotherapy",150000],
-["Bone Surgery",220000]
+"Normal Delivery – Pregnancy and maternity delivery care – ₹25,000 – ₹45,000",
+
+"C-Section Delivery – Surgical baby delivery – ₹45,000 – ₹75,000",
+
+"High Risk Pregnancy Monitoring – Advanced pregnancy care – ₹1,000 – ₹2,000 per visit",
+
+"Postnatal & Antenatal Care – Pregnancy checkups and after-delivery care – ₹500 – ₹1,500",
+
+"Uterus Removal Surgery (Hysterectomy) – ₹60,000 – ₹1,10,000",
+
+"D&C Procedure – Gynecological cleaning procedure – ₹8,000 – ₹15,000",
+
+"PCOS Hormonal Treatment – ₹800 – ₹2,500",
+
+"Female Infertility Workup – Fertility testing and diagnosis – ₹5,000 – ₹14,000",
+
+"Fetal Ultrasound Scan – Baby growth scan during pregnancy – ₹900 – ₹2,800"
 
 ]
 
@@ -388,20 +367,35 @@ treatments:[
 
 {
 
-name:"Aradhana Hospital",
+department:"Internal Medicine & Cardiology",
 
-rating:"4.6",
+doctors:[
 
-phone:"08392223333",
+"Dr. B. K. Sundar – Senior Consultant Physician & Cardiologist"
 
-map:"https://maps.google.com/?q=Aradhana+Hospital",
+],
+
+fee:"₹400 – ₹500",
 
 treatments:[
 
-["MRI Scan",6500],
-["Pregnancy Scan",4000],
-["Skin Treatment",20000],
-["Eye Surgery",70000]
+"General Physician Consultation – ₹400 – ₹500",
+
+"Diabetes & BP Management – ₹500 – ₹2,000",
+
+"ECG Heart Test – ₹500",
+
+"2D Echo Heart Scan – ₹2,000 – ₹3,500",
+
+"Heart Monitoring & Cardiac Evaluation – ₹2,500 – ₹8,000",
+
+"Chest Infection Treatment – ₹800 – ₹3,000",
+
+"ICU Critical Care – ₹10,000+ per day"
+
+]
+
+}
 
 ]
 
@@ -409,20 +403,237 @@ treatments:[
 
 {
 
-name:"Hrudayalaya Hospital",
+name:"BALLARI Health City Hospital",
 
-rating:"4.9",
+rating:"4.3",
 
-phone:"08392224444",
+phone:"08392-222222",
 
-map:"https://maps.google.com/?q=Hrudayalaya+Hospital",
+departments:[
+
+{
+
+department:"Cardiology",
+
+doctors:[
+
+"Dr. Narendra Gowda B. – Senior Interventional Cardiologist",
+
+"Dr. Tejaswar Reddy – Cardiologist"
+
+],
+
+fee:"₹800 – ₹1000",
 
 treatments:[
 
-["Heart Scan",10000],
-["Heart Surgery",400000],
-["ECG",1200],
-["Kidney Treatment",250000]
+"Heart Blood Vessel Test (Coronary Angiogram) – Checks heart blockages using scan – ₹12,000 – ₹20,000",
+
+"Heart Stent Surgery (Angioplasty/PTCA) – Opens blocked heart blood vessels – ₹75,000 – ₹1,80,000",
+
+"Pacemaker Implantation – Device inserted to control heartbeat – ₹1.5 lakh – ₹2.8 lakh",
+
+"2D Echo Heart Scan – Ultrasound scan to check heart function – ₹1,200 – ₹2,200"
+
+]
+
+},
+
+{
+
+department:"Medical & Surgical Gastroenterology",
+
+doctors:[
+
+"Dr. K. Mansoor Ali – Medical Gastroenterologist",
+
+"Dr. Kaushik BPN – Gastro Specialist",
+
+"Dr. Chandrasekhar Patil – Gastro Specialist",
+
+"Dr. Dharmareddy B. – Surgical Gastroenterologist"
+
+],
+
+fee:"₹600 – ₹1000",
+
+treatments:[
+
+"Stomach Camera Test (Endoscopy) – Camera scan for stomach problems – ₹2,500 – ₹4,500",
+
+"Large Intestine Scan (Colonoscopy) – Camera test for intestine issues – ₹5,000 – ₹9,000",
+
+"Appendix Removal Surgery – Appendix operation using laparoscopy – ₹40,000 – ₹75,000",
+
+"Gallbladder Removal Surgery – Treatment for gallbladder stones – ₹45,000 – ₹80,000",
+
+"Piles Laser Surgery – Laser treatment for piles and fissure – ₹30,000 – ₹65,000"
+
+]
+
+},
+
+{
+
+department:"Orthopedics & Spine Care",
+
+doctors:[
+
+"Dr. R. Shiva Nayak – Spine & Joint Specialist",
+
+"Dr. Arvind M. – Orthopedic Trauma Surgeon"
+
+],
+
+fee:"₹400 – ₹800",
+
+treatments:[
+
+"Knee / Hip Replacement – Artificial joint replacement surgery – ₹1,60,000 – ₹2,90,000",
+
+"Bone Fracture Surgery – Bone fixing using plates and screws – ₹35,000 – ₹85,000",
+
+"Spine Surgery – Back pain and nerve compression treatment – ₹1,30,000 – ₹2,60,000",
+
+"Ligament Repair Surgery – Sports injury knee repair – ₹60,000 – ₹1,20,000"
+
+]
+
+},
+
+{
+
+department:"Obstetrics & Gynecology",
+
+doctors:[
+
+"Dr. Poonima M. – Gynecologist",
+
+"Dr. Ankita – Gynecologist",
+
+"Dr. Veerendra Kumar – Gynecologist & Obstetrician"
+
+],
+
+fee:"₹500 – ₹800",
+
+treatments:[
+
+"Normal Delivery – Baby delivery package – ₹30,000 – ₹50,000",
+
+"C-Section Delivery – Surgical childbirth – ₹50,000 – ₹85,000",
+
+"Uterus Removal Surgery – ₹65,000 – ₹1,20,000",
+
+"Infertility & IVF Testing – Pregnancy and fertility testing – ₹5,000 – ₹15,000"
+
+]
+
+},
+
+{
+
+department:"Neurology & Brain Care",
+
+doctors:[
+
+"Dr. Siddarth S. Joshi – Neurologist"
+
+],
+
+fee:"₹800 – ₹1200",
+
+treatments:[
+
+"Stroke Emergency Treatment – Brain stroke emergency care – ₹60,000 – ₹1,20,000",
+
+"Epilepsy & Seizure Monitoring – Brain seizure treatment – ₹1,50,000 – ₹3,50,000",
+
+"Parkinson's Treatment – Brain and nerve disorder care – ₹1,200 – ₹4,000 per visit",
+
+"EEG Brain Scan – Brain wave scan – ₹1,500 – ₹2,500"
+
+]
+
+},
+
+{
+
+department:"Neurosurgery & Spine",
+
+doctors:[
+
+"Dr. S. V. Sri Harsha – Neurosurgeon",
+
+"Dr. Sachin G. R. – Spine Surgeon"
+
+],
+
+fee:"₹800 – ₹1200",
+
+treatments:[
+
+"Brain Tumor Surgery – Brain tumor removal operation – ₹1,80,000 – ₹3,50,000",
+
+"Slip Disc Spine Surgery – Spine surgery for severe back pain – ₹1,10,000 – ₹1,90,000"
+
+]
+
+},
+
+{
+
+department:"General Surgery & Critical Care",
+
+doctors:[
+
+"Dr. Shekappa Malgimani – General Surgeon",
+
+"Dr. Rajshekhar Gowda S.B. – Critical Care Specialist",
+
+"Dr. Shivanayak – Surgeon",
+
+"Dr. Sandeep – Surgical Consultant"
+
+],
+
+fee:"₹400 – ₹700",
+
+treatments:[
+
+"Hernia Surgery – Abdomen swelling surgery – ₹30,000 – ₹55,000",
+
+"ICU Critical Care – Intensive emergency support – ₹8,000 – ₹18,000 per day"
+
+]
+
+},
+
+{
+
+department:"Pulmonology & Ophthalmology",
+
+doctors:[
+
+"Dr. Shobha B.S. – Eye Specialist",
+
+"Dr. Vijaya Nagraj – Eye Specialist",
+
+"Dr. Vamsi Krishna – Lung Specialist"
+
+],
+
+fee:"₹400 – ₹600",
+
+treatments:[
+
+"Cataract Eye Surgery – Lens replacement surgery – ₹25,000 – ₹60,000",
+
+"Asthma & COPD Treatment – Breathing and lung care – ₹4,000 – ₹12,000"
+
+]
+
+}
 
 ]
 
@@ -430,102 +641,68 @@ treatments:[
 
 ];
 
-function searchTreatment(){
+function displayHospitals(data){
 
-const treatment =
-document.getElementById("treatmentInput")
-.value.toLowerCase();
+const container=document.getElementById("hospitalResults");
 
-const budget =
-parseInt(
-document.getElementById("budgetInput").value
-);
+container.innerHTML="";
 
-const result =
-document.getElementById("results");
+if(data.length===0){
 
-result.innerHTML = "";
+container.innerHTML="<h2>No Results Found</h2>";
 
-let found = false;
+return;
 
-hospitals.forEach(hospital => {
+}
 
-hospital.treatments.forEach(t => {
+data.forEach(hospital=>{
 
-const treatmentName =
-t[0].toLowerCase();
+let departmentHTML="";
 
-const cost = t[1];
+hospital.departments.forEach(dep=>{
 
-if(
-treatmentName.includes(treatment)
-&& cost <= budget
-){
+departmentHTML += `
 
-found = true;
+<h3>🏥 ${dep.department}</h3>
 
-result.innerHTML += `
+<p><b>👨‍⚕️ Doctors:</b><br>${dep.doctors.join("<br>")}</p>
 
-<div class="bg-white rounded-3xl p-8 shadow-2xl card">
+<p><b>💰 Consultation:</b> ${dep.fee}</p>
 
-<h2 class="text-3xl font-bold text-green-600">
+<p><b>🩺 Treatments:</b></p>
 
-${hospital.name}
+<ul>
 
-</h2>
+${dep.treatments.map(t=>`<li>${t}</li>`).join("")}
 
-<p class="mt-3 text-lg">
-⭐ Rating: ${hospital.rating}
-</p>
+</ul>
 
-<div class="mt-5 bg-gray-100 p-5 rounded-2xl">
+`;
 
-<h3 class="text-2xl font-bold text-blue-700">
+});
 
-🩺 ${t[0]}
+container.innerHTML += `
 
-</h3>
+<div class="card">
 
-<p class="mt-3 text-green-700 text-xl font-bold">
+<h2>${hospital.name}</h2>
 
-💰 ₹${cost}
+<p>⭐ Rating: ${hospital.rating}</p>
 
-</p>
+${departmentHTML}
 
-</div>
+<div class="btns">
 
-<div class="grid grid-cols-2 gap-4 mt-8">
-
-<button
-onclick="window.location.href='tel:${hospital.phone}'"
-class="bg-green-500 text-white py-3 rounded-xl font-bold">
-
+<button onclick="callHospital('${hospital.phone}')">
 📞 Call
-
 </button>
 
-<button
-onclick="window.open('${hospital.map}')"
-class="bg-purple-500 text-white py-3 rounded-xl font-bold">
-
-📍 Maps
-
+<button onclick="openMap('${hospital.name}')">
+📍 Map
 </button>
 
-<button
-onclick="bookAppointment('${hospital.name}')"
-class="bg-blue-600 text-white py-3 rounded-xl font-bold">
-
-📅 Appointment
-
-</button>
-
-<button
-onclick="shareHospital('${hospital.name}')"
-class="bg-pink-500 text-white py-3 rounded-xl font-bold">
-
+<button onclick="shareWebsite()">
 📤 Share
-
 </button>
 
 </div>
@@ -534,55 +711,79 @@ class="bg-pink-500 text-white py-3 rounded-xl font-bold">
 
 `;
 
+});
+
 }
+
+function searchHospital(){
+
+const input=document
+.getElementById("searchInput")
+.value
+.toLowerCase()
+.replace(/\s+/g,'');
+
+const filtered=hospitals.filter(hospital=>{
+
+const hospitalMatch=hospital.name
+.toLowerCase()
+.replace(/\s+/g,'')
+.includes(input);
+
+const depMatch=hospital.departments.some(dep=>
+
+dep.department.toLowerCase().replace(/\s+/g,'').includes(input)
+
+||
+
+dep.doctors.some(doc=>
+
+doc.toLowerCase().replace(/\s+/g,'').includes(input)
+
+)
+
+||
+
+dep.treatments.some(t=>
+
+t.toLowerCase().replace(/\s+/g,'').includes(input)
+
+)
+
+);
+
+return hospitalMatch || depMatch;
 
 });
 
-});
-
-if(!found){
-
-result.innerHTML = `
-
-<div class="col-span-2 text-center text-3xl font-bold text-red-500">
-
-No Hospitals Found Under Your Budget
-
-</div>
-
-`;
+displayHospitals(filtered);
 
 }
 
+function callHospital(phone){
+
+window.location.href="tel:"+phone;
+
 }
 
-function bookAppointment(name){
+function openMap(name){
 
-const patient =
-prompt("Enter Patient Name");
-
-if(patient){
-
-alert(
-"✅ Appointment booked for "
-+ patient +
-" at " +
-name
+window.open(
+"https://www.google.com/maps/search/"+name,
+"_blank"
 );
 
 }
 
-}
-
-function shareHospital(name){
+function shareWebsite(){
 
 if(navigator.share){
 
 navigator.share({
 
-title:name,
+title:"Affordable Healthcare Finder",
 
-text:"Check this hospital on Healthcare Finder",
+text:"Search hospitals and treatments easily",
 
 url:window.location.href
 
@@ -596,62 +797,21 @@ alert("Sharing not supported");
 
 }
 
-function openLanguageModal(){
+let speech;
 
-document.getElementById("languageModal")
-.classList.remove("hidden");
+function startVoice(){
 
-}
+const lang=document.getElementById("language").value;
 
-function closeLanguageModal(){
+speech=new SpeechSynthesisUtterance(
 
-document.getElementById("languageModal")
-.classList.add("hidden");
+"Welcome to Affordable Healthcare Finder. Search hospitals doctors departments and treatment costs easily. Use search box to find hospitals doctors and treatments. Use call button for hospital contact and map button for location guidance. Ambulance and emergency buttons are available below."
 
-}
+);
 
-function startVoice(lang){
-
-let text = "";
-
-if(lang === "en-US"){
-
-text =
-"Welcome to Advanced Healthcare Finder. First login using your name age and captcha. Then enter treatment name and your budget. The app will show hospitals and treatment costs. Use call button for hospital contact. Use maps button for navigation. Use appointment button to book appointments. Use emergency section for ambulance support.";
-
-}
-
-if(lang === "kn-IN"){
-
-text =
-"ಮೊದಲು ನಿಮ್ಮ ಹೆಸರು ವಯಸ್ಸು ಮತ್ತು ಕ್ಯಾಪ್ಚಾ ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿ. ನಂತರ ಚಿಕಿತ್ಸೆ ಹೆಸರು ಮತ್ತು ನಿಮ್ಮ ಬಜೆಟ್ ನಮೂದಿಸಿ. ಆಪ್ ಆಸ್ಪತ್ರೆಗಳು ಮತ್ತು ಚಿಕಿತ್ಸೆಯ ವೆಚ್ಚವನ್ನು ತೋರಿಸುತ್ತದೆ.";
-
-}
-
-if(lang === "te-IN"){
-
-text =
-"ముందుగా మీ పేరు వయస్సు మరియు క్యాప్చా ఉపయోగించి లాగిన్ అవ్వండి. తర్వాత చికిత్స పేరు మరియు మీ బడ్జెట్ నమోదు చేయండి.";
-
-}
-
-if(lang === "hi-IN"){
-
-text =
-"पहले अपना नाम उम्र और कैप्चा डालकर लॉगिन करें। फिर इलाज का नाम और बजट डालें। ऐप अस्पताल और इलाज की कीमत दिखाएगा।";
-
-}
-
-const speech =
-new SpeechSynthesisUtterance(text);
-
-speech.lang = lang;
-
-speech.rate = 1;
+speech.lang=lang;
 
 window.speechSynthesis.speak(speech);
-
-closeLanguageModal();
 
 }
 
@@ -661,8 +821,19 @@ window.speechSynthesis.cancel();
 
 }
 
+function callAmbulance(){
+
+window.location.href="tel:108";
+
+}
+
+function callEmergency(){
+
+window.location.href="tel:102";
+
+}
+
 </script>
 
 </body>
-
 </html>
