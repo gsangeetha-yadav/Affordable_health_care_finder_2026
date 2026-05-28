@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -27,7 +28,7 @@ color:white;
 }
 
 header h1{
-font-size:40px;
+font-size:38px;
 margin-bottom:10px;
 }
 
@@ -42,7 +43,7 @@ text-align:center;
 
 .hero img{
 width:100%;
-height:350px;
+height:320px;
 object-fit:cover;
 border-radius:15px;
 }
@@ -57,7 +58,7 @@ flex-wrap:wrap;
 
 .search-box input{
 padding:15px;
-width:330px;
+width:340px;
 border:none;
 border-radius:10px;
 font-size:16px;
@@ -95,7 +96,7 @@ text-align:center;
 
 .available h2{
 color:#0077ff;
-margin-bottom:10px;
+margin-bottom:15px;
 }
 
 .available p{
@@ -113,7 +114,7 @@ padding:20px;
 
 .card{
 background:white;
-width:390px;
+width:420px;
 padding:20px;
 border-radius:15px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
@@ -126,7 +127,7 @@ margin-bottom:10px;
 
 .department-btn{
 width:100%;
-padding:12px;
+padding:14px;
 margin-top:12px;
 border:none;
 border-radius:10px;
@@ -141,7 +142,7 @@ text-align:left;
 display:none;
 margin-top:10px;
 padding:15px;
-background:#f4f9ff;
+background:#eef6ff;
 border-radius:10px;
 }
 
@@ -150,8 +151,8 @@ padding-left:20px;
 }
 
 .department-content li{
-margin-bottom:10px;
-line-height:1.6;
+margin-bottom:14px;
+line-height:1.7;
 }
 
 .btns{
@@ -185,8 +186,8 @@ border:none;
 border-radius:50px;
 background:red;
 color:white;
-cursor:pointer;
 font-size:16px;
+cursor:pointer;
 }
 
 footer{
@@ -219,7 +220,11 @@ font-size:30px;
 
 <h1>🏥 Affordable Healthcare Finder</h1>
 
-<p>Search Hospitals, Doctors & Treatment Costs Easily</p>
+<p>
+
+Search Hospitals, Doctors, Departments & Treatment Costs
+
+</p>
 
 </header>
 
@@ -232,7 +237,7 @@ font-size:30px;
 <input
 type="text"
 id="searchInput"
-placeholder="Search Hospital, Doctor, Department or Treatment">
+placeholder="Search Hospital, Department or Doctor">
 
 <button onclick="searchHospital()">
 Search
@@ -257,7 +262,7 @@ Search
 <p>
 
 ✅ B K S Hospital <br>
-✅ BALLARI Health City Hospital <br>
+✅ BALLARI Health City Hospital
 
 </p>
 
@@ -291,11 +296,15 @@ const hospitals=[
 
 name:"B K S Hospital",
 
-rating:"4.4",
+rating:"4.4 ⭐",
 
 phone:"08392-256500",
 
-keywords:["bks","bkshospital","b k s hospital"],
+keywords:[
+"bks",
+"bkshospital",
+"b k s hospital"
+],
 
 departments:[
 
@@ -304,28 +313,55 @@ departments:[
 department:"Pediatrics",
 
 doctors:[
-
 "Dr. B. K. Srikanth – Senior Paediatrician",
-
 "Dr. Siddarth S. Joshi – Pediatric Neuro Specialist"
-
 ],
 
 fee:"₹300 – ₹800",
 
 treatments:[
 
-"General Pediatric OPD Care (Child Fever & Infection Treatment) – Treatment for fever, cough, viral infections and allergies in children – ₹300 – ₹500",
+{
+medical:"General Pediatric OPD Care",
+normal:"Child Fever & Infection Treatment",
+description:"Treatment for fever, cough, cold, infections and allergies in children.",
+cost:"₹300 – ₹500"
+},
 
-"Childhood Immunization Session (Baby Vaccination & Health Checkup) – Vaccination and routine baby health monitoring – ₹1,000 – ₹6,000",
+{
+medical:"Childhood Immunization Session",
+normal:"Baby Vaccination & Health Checkup",
+description:"Vaccination and baby health monitoring.",
+cost:"₹1,000 – ₹6,000"
+},
 
-"Phototherapy Monitoring (Newborn Jaundice Light Treatment) – Blue-light therapy for newborn jaundice – ₹3,000 – ₹6,000 per day",
+{
+medical:"Phototherapy Monitoring",
+normal:"Newborn Jaundice Light Treatment",
+description:"Blue-light treatment for newborn jaundice.",
+cost:"₹3,000 – ₹6,000 per day"
+},
 
-"NICU / PICU Intensive Care Support (Emergency ICU for Babies & Children) – Advanced ICU care for critical newborns and children – ₹10,000 – ₹20,000 per day",
+{
+medical:"Inpatient Ward Admission",
+normal:"Child Hospital Admission",
+description:"Hospital stay for children needing treatment and observation.",
+cost:"₹4,500 – ₹8,000 per day"
+},
 
-"Pediatric Surgical Intervention (Child Surgery Care) – Hernia, appendix and corrective surgeries in children – ₹15,000 – ₹45,000",
+{
+medical:"NICU / PICU Intensive Care",
+normal:"Emergency ICU for Babies & Children",
+description:"Advanced ICU support for newborns and children.",
+cost:"₹10,000 – ₹20,000 per day"
+},
 
-"EEG Brain Monitoring Test (Brain Signal Scan) – Brain scan used for seizures and neurological disorders – ₹1,500 – ₹3,500"
+{
+medical:"Pediatric Surgical Intervention",
+normal:"Child Surgery Care",
+description:"Minor and major surgeries for children.",
+cost:"₹15,000 – ₹1,50,000"
+}
 
 ]
 
@@ -336,36 +372,97 @@ treatments:[
 department:"Gynecology & Obstetrics",
 
 doctors:[
-
 "Dr. Anupama Sundar – Gynecologist & Obstetrician",
-
 "Dr. Veerendra Kumar – Gynecologist & Obstetrician"
-
 ],
 
 fee:"₹600 – ₹1000",
 
 treatments:[
 
-"Normal Vaginal Delivery (Normal Baby Delivery) – Pregnancy and childbirth care – ₹25,000 – ₹45,000",
+{
+medical:"Normal Vaginal Delivery",
+normal:"Normal Baby Delivery",
+description:"Pregnancy care and normal childbirth.",
+cost:"₹25,000 – ₹45,000"
+},
 
-"Cesarean Section / C-Section (Surgical Baby Delivery) – Surgical delivery operation – ₹45,000 – ₹75,000",
+{
+medical:"Cesarean Section / C-Section",
+normal:"Surgical Baby Delivery",
+description:"Operation performed for baby delivery.",
+cost:"₹45,000 – ₹75,000"
+},
 
-"High Risk Pregnancy Monitoring (Advanced Pregnancy Care) – Monitoring risky pregnancy conditions – ₹1,000 – ₹2,000 per visit",
+{
+medical:"High Risk Pregnancy Monitoring",
+normal:"Advanced Pregnancy Care",
+description:"Monitoring risky pregnancy conditions.",
+cost:"₹1,000 – ₹2,000 per visit"
+},
 
-"Routine Antenatal & Postnatal Care (Pregnancy Checkups & Delivery Follow-up Care) – Mother and baby care before and after delivery – ₹500 – ₹1,500",
+{
+medical:"Routine Antenatal & Postnatal Care",
+normal:"Pregnancy Before & After Delivery Care",
+description:"Mother and baby monitoring before and after delivery.",
+cost:"₹500 – ₹1,500 per visit"
+},
 
-"Hysterectomy (Uterus Removal Surgery) – Surgery to remove uterus because of medical problems – ₹60,000 – ₹1,10,000",
+{
+medical:"Hysterectomy",
+normal:"Uterus Removal Surgery",
+description:"Surgery to remove uterus.",
+cost:"₹60,000 – ₹1,10,000"
+},
 
-"Dilatation & Curettage / D&C (Uterus Cleaning Procedure) – Procedure for abnormal bleeding or pregnancy complications – ₹8,000 – ₹15,000",
+{
+medical:"Dilatation & Curettage (D&C)",
+normal:"Uterus Cleaning Procedure",
+description:"Procedure for abnormal bleeding or miscarriage care.",
+cost:"₹8,000 – ₹15,000"
+},
 
-"PCOS / Hormonal Management (Hormone Balance Treatment) – Treatment for irregular periods and hormonal imbalance – ₹800 – ₹2,500",
+{
+medical:"PCOS / Hormonal Management",
+normal:"Hormone Balance Treatment",
+description:"Treatment for hormonal imbalance and irregular periods.",
+cost:"₹800 – ₹2,500"
+},
 
-"Female Infertility Workup (Pregnancy Fertility Testing) – Tests and evaluation for fertility issues – ₹5,000 – ₹14,000",
+{
+medical:"Female Infertility Workup",
+normal:"Fertility Testing & Pregnancy Planning",
+description:"Tests and evaluation for pregnancy-related issues.",
+cost:"₹5,000 – ₹14,000"
+},
 
-"Fetal Ultrasound / Maternal Scan (Pregnancy Baby Scan) – Ultrasound scan to monitor baby growth – ₹900 – ₹2,800",
+{
+medical:"Pelvic Infection & Vaginal Discharge Care",
+normal:"Women's Infection Treatment",
+description:"Treatment for pelvic infections and discharge problems.",
+cost:"₹600 – ₹1,800"
+},
 
-"Pap Smear Test (Cervical Cancer Screening) – Test used to detect cervical cancer risk – ₹600 – ₹1,000"
+{
+medical:"Fetal Ultrasound & Maternal Scan",
+normal:"Pregnancy Baby Scan",
+description:"Ultrasound scan during pregnancy.",
+cost:"₹900 – ₹2,800"
+},
+
+{
+medical:"Routine Pregnancy Profile",
+normal:"Pregnancy Blood & Urine Tests",
+description:"Routine tests during pregnancy.",
+cost:"₹800 – ₹1,500"
+},
+
+{
+medical:"Pap Smear",
+normal:"Cervical Cancer Screening Test",
+description:"Test to detect cervical cancer risk.",
+cost:"₹600 – ₹1,000"
+}
 
 ]
 
@@ -376,24 +473,33 @@ treatments:[
 department:"Internal Medicine & Cardiology",
 
 doctors:[
-
 "Dr. B. K. Sundar – Senior Consultant Physician & Cardiologist"
-
 ],
 
 fee:"₹400 – ₹500",
 
 treatments:[
 
-"General Physician Consultation (Regular Health Checkup) – ₹400 – ₹500",
+{
+medical:"ECG Heart Test",
+normal:"Heartbeat Monitoring Test",
+description:"Checks heart rhythm and heartbeat.",
+cost:"₹500"
+},
 
-"Diabetes & Blood Pressure Management (Sugar & BP Treatment) – ₹500 – ₹2,000",
+{
+medical:"2D Echo / Echocardiogram",
+normal:"Heart Ultrasound Scan",
+description:"Ultrasound scan to evaluate heart function.",
+cost:"₹2,000 – ₹3,500"
+},
 
-"ECG Heart Test (Heartbeat Monitoring Test) – ₹500",
-
-"2D Echo / Echocardiogram (Heart Ultrasound Scan) – Scan used to check heart function – ₹2,000 – ₹3,500",
-
-"Cardiac Monitoring (Complete Heart Evaluation) – Detailed heart health assessment – ₹2,500 – ₹8,000"
+{
+medical:"Cardiac Monitoring",
+normal:"Complete Heart Evaluation",
+description:"Monitoring and testing of heart condition.",
+cost:"₹2,500 – ₹8,000"
+}
 
 ]
 
@@ -407,11 +513,16 @@ treatments:[
 
 name:"BALLARI Health City Hospital",
 
-rating:"4.3",
+rating:"4.3 ⭐",
 
 phone:"08392-222222",
 
-keywords:["bhc","ballarihealthcity","ballari health city","healthcity"],
+keywords:[
+"bhc",
+"ballarihealthcity",
+"ballari health city",
+"healthcity"
+],
 
 departments:[
 
@@ -420,24 +531,41 @@ departments:[
 department:"Cardiology",
 
 doctors:[
-
 "Dr. Narendra Gowda B. – Senior Interventional Cardiologist",
-
 "Dr. Tejaswar Reddy – Cardiologist"
-
 ],
 
 fee:"₹800 – ₹1000",
 
 treatments:[
 
-"Coronary Angiogram (Heart Blood Vessel Test) – Scan used to check blocked heart blood vessels – ₹12,000 – ₹20,000",
+{
+medical:"Coronary Angiogram",
+normal:"Heart Blood Vessel Test",
+description:"Test used to detect blockage in heart blood vessels.",
+cost:"₹12,000 – ₹20,000"
+},
 
-"Angioplasty / PTCA Stenting (Heart Stent Surgery) – Procedure to open blocked heart arteries using stents – ₹75,000 – ₹1,80,000",
+{
+medical:"Angioplasty / PTCA Stenting",
+normal:"Heart Stent Surgery",
+description:"Procedure to open blocked heart arteries using stents.",
+cost:"₹75,000 – ₹1,80,000"
+},
 
-"Permanent Pacemaker Implantation (Heartbeat Control Device Surgery) – Device implanted to control irregular heartbeat – ₹1.5 lakh – ₹2.8 lakh",
+{
+medical:"Permanent Pacemaker Implantation",
+normal:"Heartbeat Control Device Surgery",
+description:"Device implanted to control abnormal heartbeat.",
+cost:"₹1.5 lakh – ₹2.8 lakh"
+},
 
-"2D Echo / Echocardiogram (Heart Ultrasound Scan) – Ultrasound scan to check heart pumping – ₹1,200 – ₹2,200"
+{
+medical:"2D Echo / Echocardiogram",
+normal:"Heart Ultrasound Scan",
+description:"Scan used to check heart pumping and valves.",
+cost:"₹1,200 – ₹2,200"
+}
 
 ]
 
@@ -448,30 +576,50 @@ treatments:[
 department:"Medical & Surgical Gastroenterology",
 
 doctors:[
-
 "Dr. K. Mansoor Ali – Gastro Specialist",
-
 "Dr. Kaushik BPN – Gastro Specialist",
-
 "Dr. Chandrasekhar Patil – Gastro Specialist",
-
 "Dr. Dharmareddy B. – Surgical Gastroenterologist"
-
 ],
 
 fee:"₹600 – ₹1000",
 
 treatments:[
 
-"Upper GI Endoscopy (Stomach Camera Test) – Camera test used to examine stomach and ulcers – ₹2,500 – ₹4,500",
+{
+medical:"Upper GI Endoscopy",
+normal:"Stomach Camera Test",
+description:"Camera test used to check stomach ulcers and digestion problems.",
+cost:"₹2,500 – ₹4,500"
+},
 
-"Colonoscopy (Large Intestine Camera Scan) – Scan used to detect intestine problems – ₹5,000 – ₹9,000",
+{
+medical:"Colonoscopy",
+normal:"Large Intestine Camera Scan",
+description:"Camera scan used to detect intestine issues.",
+cost:"₹5,000 – ₹9,000"
+},
 
-"Laparoscopic Appendectomy (Appendix Removal Surgery) – Surgery to remove infected appendix – ₹40,000 – ₹75,000",
+{
+medical:"Laparoscopic Appendectomy",
+normal:"Appendix Removal Surgery",
+description:"Keyhole surgery to remove infected appendix.",
+cost:"₹40,000 – ₹75,000"
+},
 
-"Laparoscopic Cholecystectomy (Gallbladder Stone Removal Surgery) – Surgery to remove gallbladder stones – ₹45,000 – ₹80,000",
+{
+medical:"Laparoscopic Cholecystectomy",
+normal:"Gallbladder Stone Removal Surgery",
+description:"Surgery to remove gallbladder stones.",
+cost:"₹45,000 – ₹80,000"
+},
 
-"Piles / Fissure / Fistula Laser Surgery (Laser Treatment for Piles Problems) – Laser surgery for piles and anal pain – ₹30,000 – ₹65,000"
+{
+medical:"Laser Surgery for Piles/Fissure/Fistula",
+normal:"Laser Treatment for Piles Problems",
+description:"Laser treatment for piles and anal pain conditions.",
+cost:"₹30,000 – ₹65,000"
+}
 
 ]
 
@@ -482,24 +630,41 @@ treatments:[
 department:"Orthopedics & Spine Care",
 
 doctors:[
-
 "Dr. R. Shiva Nayak – Spine & Joint Specialist",
-
 "Dr. Arvind M. – Orthopedic Surgeon"
-
 ],
 
 fee:"₹400 – ₹800",
 
 treatments:[
 
-"Total Knee / Hip Arthroplasty (Joint Replacement Surgery) – Surgery to replace damaged knee or hip joints – ₹1,60,000 – ₹2,90,000",
+{
+medical:"Total Knee / Hip Arthroplasty",
+normal:"Joint Replacement Surgery",
+description:"Surgery to replace damaged knee or hip joints.",
+cost:"₹1,60,000 – ₹2,90,000"
+},
 
-"Complex Fracture Fixation / Bone Plating (Bone Fracture Repair Surgery) – Surgery using plates and screws to fix broken bones – ₹35,000 – ₹85,000",
+{
+medical:"Complex Fracture Fixation / Bone Plating",
+normal:"Bone Fracture Repair Surgery",
+description:"Surgery to repair broken bones using plates and screws.",
+cost:"₹35,000 – ₹85,000"
+},
 
-"Spinal Decompression & Stabilization (Spine Pressure Relief Surgery) – Surgery used for severe back pain and nerve pressure – ₹1,30,000 – ₹2,60,000",
+{
+medical:"Spinal Decompression & Stabilization",
+normal:"Spine Pressure Relief Surgery",
+description:"Surgery used for severe spine pain and nerve pressure.",
+cost:"₹1,30,000 – ₹2,60,000"
+},
 
-"Arthroscopic Ligament Repair (Sports Injury Knee Repair Surgery) – Camera-assisted ligament repair surgery – ₹60,000 – ₹1,20,000"
+{
+medical:"Arthroscopic Ligament Repair",
+normal:"Sports Injury Knee Repair Surgery",
+description:"Camera-assisted surgery to repair knee ligaments.",
+cost:"₹60,000 – ₹1,20,000"
+}
 
 ]
 
@@ -510,20 +675,64 @@ treatments:[
 department:"Neurology & Brain Care",
 
 doctors:[
-
 "Dr. Siddarth S. Joshi – Neurologist"
-
 ],
 
 fee:"₹800 – ₹1200",
 
 treatments:[
 
-"Ischemic Stroke Management & Thrombolysis (Emergency Brain Stroke Treatment) – Emergency treatment to restore brain blood flow – ₹60,000 – ₹1,20,000",
+{
+medical:"Ischemic Stroke Management & Thrombolysis",
+normal:"Emergency Brain Stroke Treatment",
+description:"Emergency treatment to restore brain blood flow.",
+cost:"₹60,000 – ₹1,20,000"
+},
 
-"Chronic Epilepsy & Seizure Regulation (Fits & Seizure Treatment) – Treatment and monitoring for repeated seizures – ₹1,50,000 – ₹3,50,000",
+{
+medical:"Chronic Epilepsy & Seizure Regulation",
+normal:"Fits & Seizure Treatment",
+description:"Treatment and monitoring for repeated seizures.",
+cost:"₹1,50,000 – ₹3,50,000"
+},
 
-"EEG Diagnostic Scan (Brain Wave Monitoring Test) – Brain scan used for seizure diagnosis – ₹1,500 – ₹2,500"
+{
+medical:"EEG Diagnostic Scan",
+normal:"Brain Wave Monitoring Test",
+description:"Brain scan used to detect seizures and nerve disorders.",
+cost:"₹1,500 – ₹2,500"
+}
+
+]
+
+},
+
+{
+
+department:"Neurosurgery & Spine",
+
+doctors:[
+"Dr. S.V. Sri Harsha – Neurosurgeon",
+"Dr. Sachin G.R – Spine Surgeon"
+],
+
+fee:"₹800 – ₹1200",
+
+treatments:[
+
+{
+medical:"Craniotomy / Brain Tumor Removal",
+normal:"Open Brain Surgery",
+description:"Major surgery to remove brain tumors or bleeding.",
+cost:"₹1,80,000 – ₹3,50,000"
+},
+
+{
+medical:"Microdiscectomy",
+normal:"Slip Disc Spine Surgery",
+description:"Surgery used to treat slipped spinal disc.",
+cost:"₹1,10,000 – ₹1,90,000"
+}
 
 ]
 
@@ -553,11 +762,12 @@ container.innerHTML=`
 
 Try Searching:<br><br>
 
-• BKS<br>
-• BHC<br>
-• Cardiology<br>
-• Pediatrics<br>
-• Dr. Siddarth Joshi
+• BHC <br>
+• BALLARI Health City <br>
+• BKS <br>
+• Cardiology <br>
+• Pediatrics <br>
+• Dr Siddarth Joshi
 
 </p>
 
@@ -571,18 +781,18 @@ return;
 
 data.forEach((hospital,hIndex)=>{
 
-container.innerHTML+=`
+container.innerHTML += `
 
 <div class="card">
 
 <h2>${hospital.name}</h2>
 
-<p>⭐ Rating: ${hospital.rating}</p>
+<p><b>⭐ Rating:</b> ${hospital.rating}</p>
 
-<p>📞 Contact: ${hospital.phone}</p>
+<p><b>📞 Phone:</b> ${hospital.phone}</p>
 
-<h3 style="margin-top:15px;color:#00a86b;">
-Departments Available
+<h3 style="margin-top:15px;color:#0077ff;">
+🏥 Departments & Doctors
 </h3>
 
 ${hospital.departments.map((dep,dIndex)=>`
@@ -591,7 +801,15 @@ ${hospital.departments.map((dep,dIndex)=>`
 class="department-btn"
 onclick="toggleDepartment(${hIndex},${dIndex})">
 
-🏥 ${dep.department}
+${dep.department}
+
+<br><br>
+
+<span style="font-size:14px;">
+
+${dep.doctors.join("<br>")}
+
+</span>
 
 </button>
 
@@ -601,7 +819,7 @@ id="department-${hIndex}-${dIndex}">
 
 <p>
 
-<b>👨‍⚕️ Doctors Available:</b><br>
+<b>👨‍⚕️ Doctors:</b><br>
 
 ${dep.doctors.join("<br>")}
 
@@ -609,31 +827,35 @@ ${dep.doctors.join("<br>")}
 
 <p>
 
-<b>💰 Consultation Fees:</b><br>
+<b>💰 Consultation Fee:</b><br>
 
 ${dep.fee}
 
 </p>
 
-<p>
-
-<b>🩺 Treatments Available:</b>
-
-</p>
+<h4 style="margin-top:10px;">
+🩺 Treatments Available
+</h4>
 
 <ul>
 
 ${dep.treatments.map(t=>`
 
-<li>${t}</li>
+<li>
+
+<b>Medical Term:</b> ${t.medical}<br>
+
+<b>Normal English:</b> ${t.normal}<br>
+
+<b>Description:</b> ${t.description}<br>
+
+<b>Approx Cost:</b> ${t.cost}
+
+</li>
 
 `).join("")}
 
 </ul>
-
-</div>
-
-`).join("")}
 
 <div class="btns">
 
@@ -653,6 +875,10 @@ ${dep.treatments.map(t=>`
 
 </div>
 
+`).join("")}
+
+</div>
+
 `;
 
 });
@@ -662,9 +888,7 @@ ${dep.treatments.map(t=>`
 function toggleDepartment(hIndex,dIndex){
 
 const content=document.getElementById(
-
 `department-${hIndex}-${dIndex}`
-
 );
 
 if(content.style.display==="block"){
@@ -700,7 +924,9 @@ hospital.name
 
 hospital.keywords.some(keyword=>
 
-keyword.replace(/\s+/g,'').includes(input)
+keyword.toLowerCase()
+.replace(/\s+/g,'')
+.includes(input)
 
 );
 
@@ -716,16 +942,6 @@ dep.department
 dep.doctors.some(doc=>
 
 doc.toLowerCase()
-.replace(/\s+/g,'')
-.includes(input)
-
-)
-
-||
-
-dep.treatments.some(t=>
-
-t.toLowerCase()
 .replace(/\s+/g,'')
 .includes(input)
 
@@ -750,11 +966,8 @@ window.location.href="tel:"+phone;
 function openMap(name){
 
 window.open(
-
 "https://www.google.com/maps/search/"+name,
-
 "_blank"
-
 );
 
 }
@@ -797,7 +1010,7 @@ function startVoiceGuide(){
 
 const speech=new SpeechSynthesisUtterance(
 
-"Welcome to Affordable Healthcare Finder. Search hospitals, doctors, departments or treatments using the search box. Click on any department to view doctors, consultation fees and treatment costs. Use the call button to contact hospitals and map button to open location."
+"Welcome to Affordable Healthcare Finder. Search hospitals, departments or doctors. Click any department to see treatments, consultation fees and doctor availability."
 
 );
 
@@ -806,6 +1019,8 @@ speech.lang="en-US";
 window.speechSynthesis.speak(speech);
 
 }
+
+displayHospitals(hospitals);
 
 </script>
 
