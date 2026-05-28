@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Affordable Healthcare Finder</title>
 
 <style>
@@ -41,7 +42,7 @@ text-align:center;
 
 .hero img{
 width:100%;
-max-height:350px;
+height:350px;
 object-fit:cover;
 border-radius:15px;
 }
@@ -56,7 +57,7 @@ flex-wrap:wrap;
 
 .search-box input{
 padding:15px;
-width:320px;
+width:330px;
 border:none;
 border-radius:10px;
 font-size:16px;
@@ -70,6 +71,21 @@ border-radius:10px;
 background:#0077ff;
 color:white;
 cursor:pointer;
+font-size:16px;
+}
+
+.voice-box{
+margin-top:20px;
+}
+
+.voice-box button{
+padding:12px 18px;
+border:none;
+border-radius:10px;
+background:#00a86b;
+color:white;
+font-size:16px;
+cursor:pointer;
 }
 
 .available{
@@ -79,7 +95,7 @@ text-align:center;
 
 .available h2{
 color:#0077ff;
-margin-bottom:15px;
+margin-bottom:10px;
 }
 
 .available p{
@@ -97,7 +113,7 @@ padding:20px;
 
 .card{
 background:white;
-width:380px;
+width:390px;
 padding:20px;
 border-radius:15px;
 box-shadow:0 4px 15px rgba(0,0,0,0.1);
@@ -108,23 +124,34 @@ color:#0077ff;
 margin-bottom:10px;
 }
 
-.card h3{
-margin-top:20px;
-color:#00a86b;
+.department-btn{
+width:100%;
+padding:12px;
+margin-top:12px;
+border:none;
+border-radius:10px;
+background:#00a86b;
+color:white;
+cursor:pointer;
+font-size:16px;
+text-align:left;
 }
 
-.card p{
-margin:8px 0;
-line-height:1.5;
-}
-
-.card ul{
-padding-left:20px;
+.department-content{
+display:none;
 margin-top:10px;
+padding:15px;
+background:#f4f9ff;
+border-radius:10px;
 }
 
-.card li{
-margin-bottom:8px;
+.department-content ul{
+padding-left:20px;
+}
+
+.department-content li{
+margin-bottom:10px;
+line-height:1.6;
 }
 
 .btns{
@@ -143,26 +170,6 @@ color:white;
 cursor:pointer;
 }
 
-.voice{
-text-align:center;
-margin:40px 0;
-}
-
-.voice select{
-padding:12px;
-border-radius:8px;
-}
-
-.voice button{
-padding:12px 15px;
-border:none;
-border-radius:8px;
-background:#0077ff;
-color:white;
-cursor:pointer;
-margin:5px;
-}
-
 .emergency{
 position:fixed;
 bottom:20px;
@@ -179,6 +186,7 @@ border-radius:50px;
 background:red;
 color:white;
 cursor:pointer;
+font-size:16px;
 }
 
 footer{
@@ -189,7 +197,20 @@ color:white;
 margin-top:30px;
 }
 
+@media(max-width:768px){
+
+.card{
+width:95%;
+}
+
+header h1{
+font-size:30px;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
@@ -198,7 +219,7 @@ margin-top:30px;
 
 <h1>🏥 Affordable Healthcare Finder</h1>
 
-<p>Search Hospitals, Doctors, Treatments & Treatment Costs Easily</p>
+<p>Search Hospitals, Doctors & Treatment Costs Easily</p>
 
 </header>
 
@@ -208,13 +229,21 @@ margin-top:30px;
 
 <div class="search-box">
 
-<input 
+<input
 type="text"
 id="searchInput"
-placeholder="Search Hospital, Doctor or Treatment">
+placeholder="Search Hospital, Doctor, Department or Treatment">
 
 <button onclick="searchHospital()">
 Search
+</button>
+
+</div>
+
+<div class="voice-box">
+
+<button onclick="startVoiceGuide()">
+🔊 Voice Guidance
 </button>
 
 </div>
@@ -236,29 +265,6 @@ Search
 
 <div id="hospitalResults"></div>
 
-<section class="voice">
-
-<h2>🗣 Voice Guidance</h2>
-
-<select id="language">
-
-<option value="en-US">English</option>
-<option value="kn-IN">Kannada</option>
-<option value="hi-IN">Hindi</option>
-<option value="te-IN">Telugu</option>
-
-</select>
-
-<button onclick="startVoice()">
-▶ Start Voice
-</button>
-
-<button onclick="stopVoice()">
-⏹ Stop Voice
-</button>
-
-</section>
-
 <div class="emergency">
 
 <button onclick="callAmbulance()">
@@ -279,7 +285,7 @@ Affordable Healthcare Finder © 2026
 
 <script>
 
-const hospitals = [
+const hospitals=[
 
 {
 
@@ -288,6 +294,8 @@ name:"B K S Hospital",
 rating:"4.4",
 
 phone:"08392-256500",
+
+keywords:["bks","bkshospital","b k s hospital"],
 
 departments:[
 
@@ -307,21 +315,17 @@ fee:"₹300 – ₹800",
 
 treatments:[
 
-"General Pediatric OPD Care – Treatment for fever, cough, viral infections and allergies – ₹300 – ₹500",
+"General Pediatric OPD Care (Child Fever & Infection Treatment) – Treatment for fever, cough, viral infections and allergies in children – ₹300 – ₹500",
 
-"Childhood Immunization – Baby vaccination and health checkup – ₹1,000 – ₹6,000",
+"Childhood Immunization Session (Baby Vaccination & Health Checkup) – Vaccination and routine baby health monitoring – ₹1,000 – ₹6,000",
 
-"Phototherapy – Blue-light treatment for newborn jaundice – ₹3,000 – ₹6,000 per day",
+"Phototherapy Monitoring (Newborn Jaundice Light Treatment) – Blue-light therapy for newborn jaundice – ₹3,000 – ₹6,000 per day",
 
-"Pediatric Ward Admission – Child inpatient care with IV support – ₹4,500 – ₹8,000 per day",
+"NICU / PICU Intensive Care Support (Emergency ICU for Babies & Children) – Advanced ICU care for critical newborns and children – ₹10,000 – ₹20,000 per day",
 
-"NICU/PICU Intensive Care – Critical newborn and child ICU support – ₹10,000 – ₹20,000 per day",
+"Pediatric Surgical Intervention (Child Surgery Care) – Hernia, appendix and corrective surgeries in children – ₹15,000 – ₹45,000",
 
-"Pediatric Surgery – Hernia, appendix and corrective surgeries – ₹15,000 – ₹45,000",
-
-"Major Pediatric Surgery – Advanced child surgeries – ₹75,000 – ₹1,50,000+",
-
-"EEG Brain Monitoring – Brain scan for seizures and neurological issues – ₹1,500 – ₹3,500"
+"EEG Brain Monitoring Test (Brain Signal Scan) – Brain scan used for seizures and neurological disorders – ₹1,500 – ₹3,500"
 
 ]
 
@@ -343,23 +347,25 @@ fee:"₹600 – ₹1000",
 
 treatments:[
 
-"Normal Delivery – Pregnancy and maternity delivery care – ₹25,000 – ₹45,000",
+"Normal Vaginal Delivery (Normal Baby Delivery) – Pregnancy and childbirth care – ₹25,000 – ₹45,000",
 
-"C-Section Delivery – Surgical baby delivery – ₹45,000 – ₹75,000",
+"Cesarean Section / C-Section (Surgical Baby Delivery) – Surgical delivery operation – ₹45,000 – ₹75,000",
 
-"High Risk Pregnancy Monitoring – Advanced pregnancy care – ₹1,000 – ₹2,000 per visit",
+"High Risk Pregnancy Monitoring (Advanced Pregnancy Care) – Monitoring risky pregnancy conditions – ₹1,000 – ₹2,000 per visit",
 
-"Postnatal & Antenatal Care – Pregnancy checkups and after-delivery care – ₹500 – ₹1,500",
+"Routine Antenatal & Postnatal Care (Pregnancy Checkups & Delivery Follow-up Care) – Mother and baby care before and after delivery – ₹500 – ₹1,500",
 
-"Uterus Removal Surgery (Hysterectomy) – ₹60,000 – ₹1,10,000",
+"Hysterectomy (Uterus Removal Surgery) – Surgery to remove uterus because of medical problems – ₹60,000 – ₹1,10,000",
 
-"D&C Procedure – Gynecological cleaning procedure – ₹8,000 – ₹15,000",
+"Dilatation & Curettage / D&C (Uterus Cleaning Procedure) – Procedure for abnormal bleeding or pregnancy complications – ₹8,000 – ₹15,000",
 
-"PCOS Hormonal Treatment – ₹800 – ₹2,500",
+"PCOS / Hormonal Management (Hormone Balance Treatment) – Treatment for irregular periods and hormonal imbalance – ₹800 – ₹2,500",
 
-"Female Infertility Workup – Fertility testing and diagnosis – ₹5,000 – ₹14,000",
+"Female Infertility Workup (Pregnancy Fertility Testing) – Tests and evaluation for fertility issues – ₹5,000 – ₹14,000",
 
-"Fetal Ultrasound Scan – Baby growth scan during pregnancy – ₹900 – ₹2,800"
+"Fetal Ultrasound / Maternal Scan (Pregnancy Baby Scan) – Ultrasound scan to monitor baby growth – ₹900 – ₹2,800",
+
+"Pap Smear Test (Cervical Cancer Screening) – Test used to detect cervical cancer risk – ₹600 – ₹1,000"
 
 ]
 
@@ -379,19 +385,15 @@ fee:"₹400 – ₹500",
 
 treatments:[
 
-"General Physician Consultation – ₹400 – ₹500",
+"General Physician Consultation (Regular Health Checkup) – ₹400 – ₹500",
 
-"Diabetes & BP Management – ₹500 – ₹2,000",
+"Diabetes & Blood Pressure Management (Sugar & BP Treatment) – ₹500 – ₹2,000",
 
-"ECG Heart Test – ₹500",
+"ECG Heart Test (Heartbeat Monitoring Test) – ₹500",
 
-"2D Echo Heart Scan – ₹2,000 – ₹3,500",
+"2D Echo / Echocardiogram (Heart Ultrasound Scan) – Scan used to check heart function – ₹2,000 – ₹3,500",
 
-"Heart Monitoring & Cardiac Evaluation – ₹2,500 – ₹8,000",
-
-"Chest Infection Treatment – ₹800 – ₹3,000",
-
-"ICU Critical Care – ₹10,000+ per day"
+"Cardiac Monitoring (Complete Heart Evaluation) – Detailed heart health assessment – ₹2,500 – ₹8,000"
 
 ]
 
@@ -408,6 +410,8 @@ name:"BALLARI Health City Hospital",
 rating:"4.3",
 
 phone:"08392-222222",
+
+keywords:["bhc","ballarihealthcity","ballari health city","healthcity"],
 
 departments:[
 
@@ -427,13 +431,13 @@ fee:"₹800 – ₹1000",
 
 treatments:[
 
-"Heart Blood Vessel Test (Coronary Angiogram) – Checks heart blockages using scan – ₹12,000 – ₹20,000",
+"Coronary Angiogram (Heart Blood Vessel Test) – Scan used to check blocked heart blood vessels – ₹12,000 – ₹20,000",
 
-"Heart Stent Surgery (Angioplasty/PTCA) – Opens blocked heart blood vessels – ₹75,000 – ₹1,80,000",
+"Angioplasty / PTCA Stenting (Heart Stent Surgery) – Procedure to open blocked heart arteries using stents – ₹75,000 – ₹1,80,000",
 
-"Pacemaker Implantation – Device inserted to control heartbeat – ₹1.5 lakh – ₹2.8 lakh",
+"Permanent Pacemaker Implantation (Heartbeat Control Device Surgery) – Device implanted to control irregular heartbeat – ₹1.5 lakh – ₹2.8 lakh",
 
-"2D Echo Heart Scan – Ultrasound scan to check heart function – ₹1,200 – ₹2,200"
+"2D Echo / Echocardiogram (Heart Ultrasound Scan) – Ultrasound scan to check heart pumping – ₹1,200 – ₹2,200"
 
 ]
 
@@ -445,7 +449,7 @@ department:"Medical & Surgical Gastroenterology",
 
 doctors:[
 
-"Dr. K. Mansoor Ali – Medical Gastroenterologist",
+"Dr. K. Mansoor Ali – Gastro Specialist",
 
 "Dr. Kaushik BPN – Gastro Specialist",
 
@@ -459,15 +463,15 @@ fee:"₹600 – ₹1000",
 
 treatments:[
 
-"Stomach Camera Test (Endoscopy) – Camera scan for stomach problems – ₹2,500 – ₹4,500",
+"Upper GI Endoscopy (Stomach Camera Test) – Camera test used to examine stomach and ulcers – ₹2,500 – ₹4,500",
 
-"Large Intestine Scan (Colonoscopy) – Camera test for intestine issues – ₹5,000 – ₹9,000",
+"Colonoscopy (Large Intestine Camera Scan) – Scan used to detect intestine problems – ₹5,000 – ₹9,000",
 
-"Appendix Removal Surgery – Appendix operation using laparoscopy – ₹40,000 – ₹75,000",
+"Laparoscopic Appendectomy (Appendix Removal Surgery) – Surgery to remove infected appendix – ₹40,000 – ₹75,000",
 
-"Gallbladder Removal Surgery – Treatment for gallbladder stones – ₹45,000 – ₹80,000",
+"Laparoscopic Cholecystectomy (Gallbladder Stone Removal Surgery) – Surgery to remove gallbladder stones – ₹45,000 – ₹80,000",
 
-"Piles Laser Surgery – Laser treatment for piles and fissure – ₹30,000 – ₹65,000"
+"Piles / Fissure / Fistula Laser Surgery (Laser Treatment for Piles Problems) – Laser surgery for piles and anal pain – ₹30,000 – ₹65,000"
 
 ]
 
@@ -481,7 +485,7 @@ doctors:[
 
 "Dr. R. Shiva Nayak – Spine & Joint Specialist",
 
-"Dr. Arvind M. – Orthopedic Trauma Surgeon"
+"Dr. Arvind M. – Orthopedic Surgeon"
 
 ],
 
@@ -489,43 +493,13 @@ fee:"₹400 – ₹800",
 
 treatments:[
 
-"Knee / Hip Replacement – Artificial joint replacement surgery – ₹1,60,000 – ₹2,90,000",
+"Total Knee / Hip Arthroplasty (Joint Replacement Surgery) – Surgery to replace damaged knee or hip joints – ₹1,60,000 – ₹2,90,000",
 
-"Bone Fracture Surgery – Bone fixing using plates and screws – ₹35,000 – ₹85,000",
+"Complex Fracture Fixation / Bone Plating (Bone Fracture Repair Surgery) – Surgery using plates and screws to fix broken bones – ₹35,000 – ₹85,000",
 
-"Spine Surgery – Back pain and nerve compression treatment – ₹1,30,000 – ₹2,60,000",
+"Spinal Decompression & Stabilization (Spine Pressure Relief Surgery) – Surgery used for severe back pain and nerve pressure – ₹1,30,000 – ₹2,60,000",
 
-"Ligament Repair Surgery – Sports injury knee repair – ₹60,000 – ₹1,20,000"
-
-]
-
-},
-
-{
-
-department:"Obstetrics & Gynecology",
-
-doctors:[
-
-"Dr. Poonima M. – Gynecologist",
-
-"Dr. Ankita – Gynecologist",
-
-"Dr. Veerendra Kumar – Gynecologist & Obstetrician"
-
-],
-
-fee:"₹500 – ₹800",
-
-treatments:[
-
-"Normal Delivery – Baby delivery package – ₹30,000 – ₹50,000",
-
-"C-Section Delivery – Surgical childbirth – ₹50,000 – ₹85,000",
-
-"Uterus Removal Surgery – ₹65,000 – ₹1,20,000",
-
-"Infertility & IVF Testing – Pregnancy and fertility testing – ₹5,000 – ₹15,000"
+"Arthroscopic Ligament Repair (Sports Injury Knee Repair Surgery) – Camera-assisted ligament repair surgery – ₹60,000 – ₹1,20,000"
 
 ]
 
@@ -545,91 +519,11 @@ fee:"₹800 – ₹1200",
 
 treatments:[
 
-"Stroke Emergency Treatment – Brain stroke emergency care – ₹60,000 – ₹1,20,000",
+"Ischemic Stroke Management & Thrombolysis (Emergency Brain Stroke Treatment) – Emergency treatment to restore brain blood flow – ₹60,000 – ₹1,20,000",
 
-"Epilepsy & Seizure Monitoring – Brain seizure treatment – ₹1,50,000 – ₹3,50,000",
+"Chronic Epilepsy & Seizure Regulation (Fits & Seizure Treatment) – Treatment and monitoring for repeated seizures – ₹1,50,000 – ₹3,50,000",
 
-"Parkinson's Treatment – Brain and nerve disorder care – ₹1,200 – ₹4,000 per visit",
-
-"EEG Brain Scan – Brain wave scan – ₹1,500 – ₹2,500"
-
-]
-
-},
-
-{
-
-department:"Neurosurgery & Spine",
-
-doctors:[
-
-"Dr. S. V. Sri Harsha – Neurosurgeon",
-
-"Dr. Sachin G. R. – Spine Surgeon"
-
-],
-
-fee:"₹800 – ₹1200",
-
-treatments:[
-
-"Brain Tumor Surgery – Brain tumor removal operation – ₹1,80,000 – ₹3,50,000",
-
-"Slip Disc Spine Surgery – Spine surgery for severe back pain – ₹1,10,000 – ₹1,90,000"
-
-]
-
-},
-
-{
-
-department:"General Surgery & Critical Care",
-
-doctors:[
-
-"Dr. Shekappa Malgimani – General Surgeon",
-
-"Dr. Rajshekhar Gowda S.B. – Critical Care Specialist",
-
-"Dr. Shivanayak – Surgeon",
-
-"Dr. Sandeep – Surgical Consultant"
-
-],
-
-fee:"₹400 – ₹700",
-
-treatments:[
-
-"Hernia Surgery – Abdomen swelling surgery – ₹30,000 – ₹55,000",
-
-"ICU Critical Care – Intensive emergency support – ₹8,000 – ₹18,000 per day"
-
-]
-
-},
-
-{
-
-department:"Pulmonology & Ophthalmology",
-
-doctors:[
-
-"Dr. Shobha B.S. – Eye Specialist",
-
-"Dr. Vijaya Nagraj – Eye Specialist",
-
-"Dr. Vamsi Krishna – Lung Specialist"
-
-],
-
-fee:"₹400 – ₹600",
-
-treatments:[
-
-"Cataract Eye Surgery – Lens replacement surgery – ₹25,000 – ₹60,000",
-
-"Asthma & COPD Treatment – Breathing and lung care – ₹4,000 – ₹12,000"
+"EEG Diagnostic Scan (Brain Wave Monitoring Test) – Brain scan used for seizure diagnosis – ₹1,500 – ₹2,500"
 
 ]
 
@@ -649,39 +543,35 @@ container.innerHTML="";
 
 if(data.length===0){
 
-container.innerHTML="<h2>No Results Found</h2>";
+container.innerHTML=`
+
+<div class="card">
+
+<h2>No Results Found ❌</h2>
+
+<p>
+
+Try Searching:<br><br>
+
+• BKS<br>
+• BHC<br>
+• Cardiology<br>
+• Pediatrics<br>
+• Dr. Siddarth Joshi
+
+</p>
+
+</div>
+
+`;
 
 return;
 
 }
 
-data.forEach(hospital=>{
+data.forEach((hospital,hIndex)=>{
 
-let departmentHTML="";
-
-hospital.departments.forEach(dep=>{
-
-departmentHTML += `
-
-<h3>🏥 ${dep.department}</h3>
-
-<p><b>👨‍⚕️ Doctors:</b><br>${dep.doctors.join("<br>")}</p>
-
-<p><b>💰 Consultation:</b> ${dep.fee}</p>
-
-<p><b>🩺 Treatments:</b></p>
-
-<ul>
-
-${dep.treatments.map(t=>`<li>${t}</li>`).join("")}
-
-</ul>
-
-`;
-
-});
-
-container.innerHTML += `
+container.innerHTML+=`
 
 <div class="card">
 
@@ -689,7 +579,61 @@ container.innerHTML += `
 
 <p>⭐ Rating: ${hospital.rating}</p>
 
-${departmentHTML}
+<p>📞 Contact: ${hospital.phone}</p>
+
+<h3 style="margin-top:15px;color:#00a86b;">
+Departments Available
+</h3>
+
+${hospital.departments.map((dep,dIndex)=>`
+
+<button
+class="department-btn"
+onclick="toggleDepartment(${hIndex},${dIndex})">
+
+🏥 ${dep.department}
+
+</button>
+
+<div
+class="department-content"
+id="department-${hIndex}-${dIndex}">
+
+<p>
+
+<b>👨‍⚕️ Doctors Available:</b><br>
+
+${dep.doctors.join("<br>")}
+
+</p>
+
+<p>
+
+<b>💰 Consultation Fees:</b><br>
+
+${dep.fee}
+
+</p>
+
+<p>
+
+<b>🩺 Treatments Available:</b>
+
+</p>
+
+<ul>
+
+${dep.treatments.map(t=>`
+
+<li>${t}</li>
+
+`).join("")}
+
+</ul>
+
+</div>
+
+`).join("")}
 
 <div class="btns">
 
@@ -715,6 +659,26 @@ ${departmentHTML}
 
 }
 
+function toggleDepartment(hIndex,dIndex){
+
+const content=document.getElementById(
+
+`department-${hIndex}-${dIndex}`
+
+);
+
+if(content.style.display==="block"){
+
+content.style.display="none";
+
+}else{
+
+content.style.display="block";
+
+}
+
+}
+
 function searchHospital(){
 
 const input=document
@@ -725,20 +689,35 @@ const input=document
 
 const filtered=hospitals.filter(hospital=>{
 
-const hospitalMatch=hospital.name
+const hospitalMatch=
+
+hospital.name
 .toLowerCase()
 .replace(/\s+/g,'')
-.includes(input);
+.includes(input)
 
-const depMatch=hospital.departments.some(dep=>
+||
 
-dep.department.toLowerCase().replace(/\s+/g,'').includes(input)
+hospital.keywords.some(keyword=>
+
+keyword.replace(/\s+/g,'').includes(input)
+
+);
+
+const departmentMatch=hospital.departments.some(dep=>
+
+dep.department
+.toLowerCase()
+.replace(/\s+/g,'')
+.includes(input)
 
 ||
 
 dep.doctors.some(doc=>
 
-doc.toLowerCase().replace(/\s+/g,'').includes(input)
+doc.toLowerCase()
+.replace(/\s+/g,'')
+.includes(input)
 
 )
 
@@ -746,13 +725,15 @@ doc.toLowerCase().replace(/\s+/g,'').includes(input)
 
 dep.treatments.some(t=>
 
-t.toLowerCase().replace(/\s+/g,'').includes(input)
+t.toLowerCase()
+.replace(/\s+/g,'')
+.includes(input)
 
 )
 
 );
 
-return hospitalMatch || depMatch;
+return hospitalMatch || departmentMatch;
 
 });
 
@@ -769,8 +750,11 @@ window.location.href="tel:"+phone;
 function openMap(name){
 
 window.open(
+
 "https://www.google.com/maps/search/"+name,
+
 "_blank"
+
 );
 
 }
@@ -783,7 +767,7 @@ navigator.share({
 
 title:"Affordable Healthcare Finder",
 
-text:"Search hospitals and treatments easily",
+text:"Find hospitals, doctors and treatment costs easily",
 
 url:window.location.href
 
@@ -797,30 +781,6 @@ alert("Sharing not supported");
 
 }
 
-let speech;
-
-function startVoice(){
-
-const lang=document.getElementById("language").value;
-
-speech=new SpeechSynthesisUtterance(
-
-"Welcome to Affordable Healthcare Finder. Search hospitals doctors departments and treatment costs easily. Use search box to find hospitals doctors and treatments. Use call button for hospital contact and map button for location guidance. Ambulance and emergency buttons are available below."
-
-);
-
-speech.lang=lang;
-
-window.speechSynthesis.speak(speech);
-
-}
-
-function stopVoice(){
-
-window.speechSynthesis.cancel();
-
-}
-
 function callAmbulance(){
 
 window.location.href="tel:108";
@@ -830,6 +790,20 @@ window.location.href="tel:108";
 function callEmergency(){
 
 window.location.href="tel:102";
+
+}
+
+function startVoiceGuide(){
+
+const speech=new SpeechSynthesisUtterance(
+
+"Welcome to Affordable Healthcare Finder. Search hospitals, doctors, departments or treatments using the search box. Click on any department to view doctors, consultation fees and treatment costs. Use the call button to contact hospitals and map button to open location."
+
+);
+
+speech.lang="en-US";
+
+window.speechSynthesis.speak(speech);
 
 }
 
